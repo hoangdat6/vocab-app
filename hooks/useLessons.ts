@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
-import { Theme, Lesson } from "@/types/lessonTypes";
-import { getThemes } from "@/services/lessonService";
+import { Course, Lesson } from "@/types/lessonTypes";
+import { getCourses } from "@/services/courseService";
 
 export function useLessons() {
-  const [themes, setThemes] = useState<Theme[]>([]);
+  const [courses, setCourses] = useState<Course[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [difficulty, setDifficulty] = useState("all");
   const [sortBy, setSortBy] = useState("popular");
-  const [filteredThemes, setFilteredThemes] = useState<Theme[]>([]);
+  const [filteredThemes, setFilteredThemes] = useState<Course[]>([]);
   const [allLessons, setAllLessons] = useState<Lesson[]>([]);
 
   useEffect(() => {
-    const data = getThemes();
-    setThemes(data);
+    const data = getCourses();
+    setCourses(data);
     const all = data.flatMap((theme) =>
       theme.lessons.map((lesson) => ({
         ...lesson,
@@ -27,7 +27,7 @@ export function useLessons() {
   }, []);
 
   useEffect(() => {
-    let newFilteredThemes = [...themes];
+    let newFilteredThemes = [...courses];
 
     // Filter by search query
     if (searchQuery.trim() !== "") {
@@ -48,10 +48,10 @@ export function useLessons() {
     // ...sorting logic...
 
     setFilteredThemes(newFilteredThemes);
-  }, [themes, searchQuery, difficulty, sortBy]);
+  }, [courses, searchQuery, difficulty, sortBy]);
 
   return {
-    themes,
+    themes: courses,
     allLessons,
     filteredThemes,
     searchQuery,

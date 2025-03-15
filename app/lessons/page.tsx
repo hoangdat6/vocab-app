@@ -230,7 +230,7 @@ export default function LessonsPage() {
                 .filter(lesson => 
                   (lesson.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                    lesson.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                   lesson.themeName.toLowerCase().includes(searchQuery.toLowerCase())) &&
+                   lesson.courseName.toLowerCase().includes(searchQuery.toLowerCase())) &&
                   (difficulty === "all" || lesson.difficulty === difficulty)
                 )
                 .sort((a, b) => {
@@ -251,7 +251,7 @@ export default function LessonsPage() {
             {allLessons.filter(lesson => 
               (lesson.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                lesson.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-               lesson.themeName.toLowerCase().includes(searchQuery.toLowerCase())) &&
+               lesson.courseName.toLowerCase().includes(searchQuery.toLowerCase())) &&
               (difficulty === "all" || lesson.difficulty === difficulty)
             ).length === 0 && (
               <div className="text-center py-12">

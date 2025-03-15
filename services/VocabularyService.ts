@@ -1,4 +1,4 @@
-import { Lesson } from "../types"
+import { Lesson } from "../app/vocabulary-learning/[lessonId]/types"
 
 // Sample vocabulary data for a lesson
 export const vocabularyLessons: Record<string, Lesson> = {

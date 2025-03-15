@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useCallback } from "react"
 import type { QuestionType, ReviewSessionResults, QuestionResult } from "@/types/review"
-import type { VocabularyItem } from "@/types/vocabulary"
 import { ReviewService, QUESTION_TYPES } from "@/services/review-service"
+import { VocabularyItem } from "@/types/lessonTypes"
 
 interface UseReviewSessionProps {
   vocabularyItems: VocabularyItem[]

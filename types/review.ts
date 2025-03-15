@@ -1,4 +1,4 @@
-import { VocabularyItem } from "./vocabulary"
+import { VocabularyItem } from "./lessonTypes"
 
 export type QuestionType = "multiple-choice" | "translation" | "fill-in-blank" | "listening"
 

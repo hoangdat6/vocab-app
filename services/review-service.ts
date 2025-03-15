@@ -1,5 +1,5 @@
+import { VocabularyItem } from "@/types/lessonTypes"
 import type { QuestionType, ReviewSessionResults } from "@/types/review"
-import type { VocabularyItem } from "@/types/vocabulary"
 
 // Question types
 export const QUESTION_TYPES: QuestionType[] = ["multiple-choice", "translation", "fill-in-blank", "listening"]

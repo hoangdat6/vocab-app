@@ -18,7 +18,7 @@ export function LessonCard({ lesson, onSelect }: LessonCardProps) {
           <div className="flex justify-between items-start">
             <div className="space-y-1">
               <Badge className={`${lesson.themeColor} mb-2`}>
-                <span className="mr-1">{lesson.themeIcon}</span> {lesson.themeName}
+                <span className="mr-1">{lesson.icon}</span> {lesson.courseName}
               </Badge>
               <CardTitle className="text-lg">{lesson.title}</CardTitle>
             </div>

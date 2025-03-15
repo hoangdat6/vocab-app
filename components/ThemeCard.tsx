@@ -1,10 +1,10 @@
-import { Theme } from "@/types/lessonTypes";
+import { Course } from "@/types/lessonTypes";
 import { Card, CardHeader, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { BookOpen, Users } from 'lucide-react';
 
 interface ThemeCardProps {
-  theme: Theme;
+  theme: Course;
   onSelect: (id: string) => void;
 }
 

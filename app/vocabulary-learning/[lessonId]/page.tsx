@@ -8,10 +8,6 @@ import { Clock } from 'lucide-react'; // Import Clock icon
 import { 
   Card, 
   CardContent, 
-  CardFooter,
-  CardHeader, 
-  CardTitle,
-  CardDescription 
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
@@ -24,19 +20,9 @@ import {
   DialogHeader, 
   DialogTitle 
 } from "@/components/ui/dialog"
-import { 
-  Tooltip, 
-  TooltipContent, 
-  TooltipProvider, 
-  TooltipTrigger 
-} from "@/components/ui/tooltip"
-import { Textarea } from "@/components/ui/textarea"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Separator } from "@/components/ui/separator"
-import { useVocabularyLearning } from "./hooks/useVocabularyLearning"
-import { Flashcards } from "./components/Flashcards"
-import { WritingMode } from "./components/WritingMode"
-import { QuizMode } from "./components/QuizMode"
+import { useVocabularyProgress } from "@/hooks/use-vocabulary-progress"
+import { VocabularyStage } from "@/components/lessons/VocabularyStage"
 
 // Animation variants
 const pageVariants = {
@@ -79,26 +65,24 @@ const resultVariants = {
   }
 };
 
-// Learning modes
-const learningModes = [
-  { id: "flashcards", name: "Thẻ ghi nhớ", icon: <BookOpen className="h-4 w-4 mr-2" /> },
-  { id: "writing", name: "Viết", icon: <BookOpen className="h-4 w-4 mr-2" /> },
-  { id: "quiz", name: "Trắc nghiệm", icon: <BookOpen className="h-4 w-4 mr-2" /> }
-];
-
 export default function Page({ params }: { params: { lessonId: string } }) {
   const {
-    lesson, loading,
+    lesson,
     currentIndex,
-    learningMode, setLearningMode,
-    showSide, setShowSide,
-    answer, setAnswer,
-    isCorrect,
-    completed, showCompletionDialog, setShowCompletionDialog,
-    progress, correctAnswers, incorrectAnswers, savedWords,
-    nextCard, prevCard, handleRestart, toggleSaveWord, playAudio,
-    checkAnswer // <-- add this
-  } = useVocabularyLearning(params.lessonId);
+    currentStage,
+    progress,
+    correctCount,
+    incorrectCount,
+    loading,
+    showCompletionDialog,
+    words,
+    handleCorrectAnswer,
+    handleIncorrectAnswer,
+    handleNextWord,
+    handleReset,
+    setShowCompletionDialog,
+    
+  } = useVocabularyProgress(params.lessonId)
 
   const router = useRouter();
 
@@ -139,7 +123,7 @@ export default function Page({ params }: { params: { lessonId: string } }) {
             Quay lại
           </Button>
           
-          <div className="flex gap-2">
+          {/* <div className="flex gap-2">
             <Button 
               variant="outline" 
               onClick={handleRestart}
@@ -148,13 +132,13 @@ export default function Page({ params }: { params: { lessonId: string } }) {
               <RotateCcw className="h-4 w-4" />
               Học lại
             </Button>
-          </div>
+          </div> */}
         </div>
         
         <div className="space-y-2">
           <div className="flex items-center gap-2">
             <Badge className={`${lesson.themeColor} ${lesson.themeFontColor}`}>
-              <span className="mr-1">{lesson.themeIcon}</span> {lesson.theme}
+              <span className="mr-1">{lesson.icon}</span> {lesson.courseName}
             </Badge>
             <Badge variant="outline">
               {lesson.difficulty === "beginner" ? "Cơ bản" : 
@@ -183,60 +167,28 @@ export default function Page({ params }: { params: { lessonId: string } }) {
             </div>
             <div className="flex items-center gap-2 text-sm">
               <span className="flex items-center text-green-500 gap-1">
-                <Check className="h-4 w-4" /> {correctAnswers}
+                <Check className="h-4 w-4" /> {correctCount}
               </span>
               <span className="flex items-center text-red-500 gap-1">
-                <X className="h-4 w-4" /> {incorrectAnswers}
+                <X className="h-4 w-4" /> {incorrectCount}
               </span>
             </div>
           </div>
           <Progress value={progress} className="h-2" />
         </div>
         
-        <Tabs value={learningMode} onValueChange={setLearningMode} className="mt-6">
-          <TabsList className="grid grid-cols-3 mb-6">
-            {learningModes.map(mode => (
-              <TabsTrigger key={mode.id} value={mode.id} className="flex items-center">
-                {mode.icon}
-                {mode.name}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-          
-          <TabsContent value="flashcards">
-            <Flashcards
-              lesson={lesson}
-              currentIndex={currentIndex}
-              nextCard={nextCard}
-              prevCard={prevCard}
-              savedWords={savedWords}
-              toggleSaveWord={toggleSaveWord}
-              playAudio={playAudio}
-              showSide={showSide}
-              setShowSide={setShowSide}
-            />
-          </TabsContent>
-          
-          <TabsContent value="writing">
-            <WritingMode
-              lesson={lesson}
-              currentIndex={currentIndex}
-              answer={answer}
-              setAnswer={setAnswer}
-              isCorrect={isCorrect}
-              checkAnswer={checkAnswer}
-              nextCard={nextCard}
-              prevCard={prevCard}
-              savedWords={savedWords}
-              toggleSaveWord={toggleSaveWord}
-              playAudio={playAudio}
-            />
-          </TabsContent>
-          
-          <TabsContent value="quiz">
-            <QuizMode setLearningMode={setLearningMode} />
-          </TabsContent>
-        </Tabs>
+        <Card>
+            <CardContent className="p-6">
+              <VocabularyStage
+                word={words[currentIndex]}
+                stage={currentStage}
+                onCorrect={handleCorrectAnswer}
+                onIncorrect={handleIncorrectAnswer}
+                onNext={handleNextWord}
+              />
+            </CardContent>
+          </Card>
+        
       </div>
       
       {/* Completion Dialog */}
@@ -253,21 +205,21 @@ export default function Page({ params }: { params: { lessonId: string } }) {
             <div className="space-y-4">
               <div className="flex items-center justify-center gap-6">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-green-500">{correctAnswers}</div>
+                  <div className="text-3xl font-bold text-green-500">{correctCount}</div>
                   <div className="text-sm text-muted-foreground">Đúng</div>
                 </div>
                 
                 <Separator orientation="vertical" className="h-10" />
                 
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-red-500">{incorrectAnswers}</div>
+                  <div className="text-3xl font-bold text-red-500">{incorrectCount}</div>
                   <div className="text-sm text-muted-foreground">Sai</div>
                 </div>
                 
                 <Separator orientation="vertical" className="h-10" />
                 
                 <div className="text-center">
-                  <div className="text-3xl font-bold">{savedWords.length}</div>
+                  <div className="text-3xl font-bold">{words.length}</div>
                   <div className="text-sm text-muted-foreground">Đã lưu</div>
                 </div>
               </div>
@@ -277,11 +229,11 @@ export default function Page({ params }: { params: { lessonId: string } }) {
                 <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 overflow-hidden">
                   <div 
                     className="h-full bg-green-500 rounded-full"
-                    style={{ width: `${correctAnswers > 0 ? (correctAnswers / (correctAnswers + incorrectAnswers) * 100) : 0}%` }}>
+                    style={{ width: `${correctCount > 0 ? (correctCount / (correctCount + incorrectCount) * 100) : 0}%` }}>
                   </div>
                 </div>
                 <p className="text-center mt-2">
-                  {correctAnswers > 0 ? Math.round((correctAnswers / (correctAnswers + incorrectAnswers) * 100)) : 0}%
+                  {correctCount > 0 ? Math.round((correctCount / (correctCount + incorrectCount) * 100)) : 0}%
                 </p>
               </div>
             </div>
@@ -292,10 +244,10 @@ export default function Page({ params }: { params: { lessonId: string } }) {
               <ArrowLeft className="h-4 w-4 mr-2" />
               Quay lại danh sách
             </Button>
-            <Button onClick={handleRestart} className="sm:flex-1">
+            {/* <Button onClick={handleRestart} className="sm:flex-1">
               <RotateCcw className="h-4 w-4 mr-2" />
               Học lại
-            </Button>
+            </Button> */}
           </DialogFooter>
         </DialogContent>
       </Dialog>
