@@ -1,8 +1,9 @@
 "use client"
 
+import VocabularyService from "@/services/vocabulary-service"
+import { VocabularyItem } from "@/types/lesson-types"
 import { useState, useEffect } from "react"
-import { VocabularyItem } from "@/types/vocabulary"
-import { VocabularyService } from "@/services/vocabulary-service"
+
 
 export function useVocabularyData() {
   const [vocabularyItems, setVocabularyItems] = useState<VocabularyItem[]>([])

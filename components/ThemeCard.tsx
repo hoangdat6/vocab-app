@@ -1,4 +1,4 @@
-import { Course } from "@/types/lessonTypes";
+import { Course } from "@/types/lesson-types";
 import { Card, CardHeader, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { BookOpen, Users } from 'lucide-react';

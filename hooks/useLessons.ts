@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Course, Lesson } from "@/types/lessonTypes";
-import { getCourses } from "@/services/courseService";
+import { Course, Lesson } from "@/types/lesson-types";
+import { getCourses } from "@/services/course-service";
 
 export function useLessons() {
   const [courses, setCourses] = useState<Course[]>([]);

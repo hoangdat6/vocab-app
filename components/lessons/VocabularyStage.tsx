@@ -4,7 +4,7 @@ import { useState } from "react"
 import { VocabularyFlashcard } from "./VocabularyFlashcard"
 import { VocabularyAudio } from "./VocabularyAudio"
 import { VocabularyTyping } from "./VocabularyTyping"
-import { VocabularyItem } from "@/types/lessonTypes"
+import { VocabularyItem } from "@/types/lesson-types"
 
 interface VocabularyStageProps {
   word: VocabularyItem

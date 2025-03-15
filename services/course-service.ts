@@ -1,4 +1,4 @@
-import { Course, Lesson } from "@/types/lessonTypes";
+import { Course, Lesson, VocabularyItem } from "@/types/lesson-types";
 
 export const mockCourses: Course[] = [
   {
@@ -128,6 +128,8 @@ export const mockCourses: Course[] = [
 ];
 
 
+
+
 export function getCourses(): Course[] {
   return mockCourses;
 }
@@ -138,4 +140,8 @@ export function getAllLesson(): Lesson[] {
 
 export function fetchLessonById(lessonId: string): Lesson {
   return getAllLesson().filter((item: Lesson) => item.id == lessonId)[0]
+}
+
+export function getAllVocab(): VocabularyItem[] {
+  return getAllLesson().map((item: Lesson) => item.vocabulary).flat()
 }

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react"
 import type { QuestionType, ReviewSessionResults, QuestionResult } from "@/types/review"
 import { ReviewService, QUESTION_TYPES } from "@/services/review-service"
-import { VocabularyItem } from "@/types/lessonTypes"
+import { VocabularyItem } from "@/types/lesson-types"
 
 interface UseReviewSessionProps {
   vocabularyItems: VocabularyItem[]

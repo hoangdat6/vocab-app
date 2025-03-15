@@ -1,8 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Lesson, VocabularyItem } from "@/types/lessonTypes"
-import { fetchLessonById } from "@/services/courseService"
+import { Lesson, VocabularyItem } from "@/types/lesson-types"
+import { fetchLessonById } from "@/services/course-service"
 
 interface SpacedRepetitionData {
     wordId: number

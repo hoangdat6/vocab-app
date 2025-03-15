@@ -36,23 +36,6 @@ export default function ReviewPage() {
             <Card>
               <CardContent className="p-6">
                 <Tabs defaultValue="all">
-                  {/* <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-                    <TabsList>
-                      <TabsTrigger value="all">Tất cả từ</TabsTrigger>
-                      <TabsTrigger value="saved">Đã lưu</TabsTrigger>
-                      <TabsTrigger value="mastered">Đã thuộc</TabsTrigger>
-                      <TabsTrigger value="learning">Đang học</TabsTrigger>
-                    </TabsList>
-                    <div className="flex items-center gap-2">
-                      <div className="relative">
-                        <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                        <Input placeholder="Tìm kiếm từ" className="pl-8" />
-                      </div>
-                      <Button variant="outline" size="icon">
-                        <Filter className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div> */}
                     <ReviewWordList />
                 </Tabs>
               </CardContent>

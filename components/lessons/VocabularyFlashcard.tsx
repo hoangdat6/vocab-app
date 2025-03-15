@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Volume2, RotateCw, ArrowRight } from "lucide-react"
 import { motion } from "framer-motion"
-import { VocabularyItem } from "@/types/lessonTypes"
+import { VocabularyItem } from "@/types/lesson-types"
 
 interface VocabularyFlashcardProps {
   word: VocabularyItem

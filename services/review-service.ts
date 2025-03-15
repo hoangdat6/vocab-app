@@ -1,4 +1,4 @@
-import { VocabularyItem } from "@/types/lessonTypes"
+import { VocabularyItem } from "@/types/lesson-types"
 import type { QuestionType, ReviewSessionResults } from "@/types/review"
 
 // Question types

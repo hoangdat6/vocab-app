@@ -29,8 +29,7 @@ export default function WritingPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
-
+    <>
       <main className="flex-1 container py-6">
         <div className="max-w-5xl mx-auto">
           <motion.div 
@@ -249,6 +248,6 @@ export default function WritingPage() {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </>
   )
 }

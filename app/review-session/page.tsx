@@ -2,8 +2,6 @@
 
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { MainNav } from "@/components/header/main-nav"
-import { UserNav } from "@/components/header/user-nav"
 import { Heart, ArrowLeft, Volume2, CheckCircle, XCircle, Trophy } from "lucide-react"
 import { ReviewQuestion } from "@/components/review/review-question"
 import { ReviewSessionResults } from "@/components/review/review-session-results"
@@ -64,7 +62,7 @@ export default function ReviewSessionPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    // <div className="flex min-h-screen flex-col bg-background">
       <main className="flex-1 container py-6">
         <div className="mx-auto max-w-3xl">
           <AnimatePresence mode="wait">
@@ -246,14 +244,13 @@ export default function ReviewSessionPage() {
           </AnimatePresence>
         </div>
       </main>
-    </div>
+    // </div>
   )
 }
 
 function ReviewSessionLoading() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 h-16" />
       <main className="flex-1 container py-6">
         <div className="mx-auto max-w-3xl">
           <div className="mb-8 space-y-4">
